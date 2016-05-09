@@ -78,7 +78,7 @@ Note that some vendors require that you pass Billing, while some do not. Also, t
 the billing and/or shipping information as custom metadata, while others do not.
 
 
-```
+```php
 require_once('tokenpay/base/TokenPay.php');
 $o = TokenPay::createGateway('vendor');
 $o->setDebugMode(TRUE); // whether to send output of sending and receiving to the screen
@@ -129,7 +129,7 @@ If you weren't storing the $sTransID (which becomes the $sChargeID here) and $sP
 do so in order to be able to use this API for refunds. Note that some vendors may also want you to pass the $sCurrency, too.
 
 
-```
+```php
 require_once('tokenpay/base/TokenPay.php');
 $o = TokenPay::createGateway('vendor');
 $o->setDebugMode(TRUE); // whether to send output of sending and receiving to the screen
