@@ -17,7 +17,7 @@ The ulterior desire, however, is to encourage all payment gateways to simplify a
 especiallly use token-based payments in their API offerings.
 
 Where this project deviates from OmniPay is that the code is easier to follow, doesn't require a heavy framework dependency (it's
-straight PHP), and is easier to install, use, and extend. Also, OmniPay supports more API features that we find superfluous). 
+straight PHP), and is easier to install, use, and extend. Also, OmniPay supports more API features that we find superfluous. 
 OmniPay also supports non-token-based charges, while this one does not.
 
 Currently supported gateways:
