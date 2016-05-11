@@ -475,6 +475,9 @@ echo "\n\nRAW ERROR MESSAGE = $s\n\n";
 		$oResponse->FailMessage = $s;
 		$oResponse->FailCode = $this->parseErrorCode($sResponse);
 	}
+	if ($oResponse->FailCode == '91512') {
+		$oResponse->FailMessage = 'Already refunded';
+	}
 	return $oResponse;
 }
 
