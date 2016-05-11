@@ -87,6 +87,13 @@ echo "\nCURL RESPONSE CODE = $nResponseCode\n";
 		$oResponse->FailCode = $nResponseCode;
 	}
 	if ($nResponseCode == 400) {
+		$sMessage = '';
+		@ $oJSON = json_decode($sResponse);
+		$sMessage = @ $oJSON->error->message;
+		if (strpos($sMessage,'has already been refunded') !== FALSE) {
+			$oResponse->FailMessage = "Already refunded.";
+			return $oResponse;
+		}
 		$oResponse->FailMessage = "Error from Stripe payment system. The request was unacceptable, often due to missing a required parameter, or an invalid token.";
 		return $oResponse;
 	}
