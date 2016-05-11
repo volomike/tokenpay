@@ -102,6 +102,12 @@ echo "\nCURL RESPONSE CODE = $nResponseCode\n";
 		return $oResponse;
 	}
 	if ($nResponseCode == 402) {
+		@ $oJSON = json_decode($sResponse);
+		$sMessage = @ $oJSON->error->message;
+		if (!empty($sMessage)) {
+			$oResponse->FailMessage = $sMessage;
+			return $oResponse;
+		}
 		$oResponse->FailMessage = "Error from Stripe payment system. The parameters were valid but the request failed.";
 		return $oResponse;
 	}
@@ -251,6 +257,12 @@ echo "\nCURL RESPONSE CODE = $nResponseCode\n";
 		return $oResponse;
 	}
 	if ($nResponseCode == 402) {
+		@ $oJSON = json_decode($sResponse);
+		$sMessage = @ $oJSON->error->message;
+		if (!empty($sMessage)) {
+			$oResponse->FailMessage = $sMessage;
+			return $oResponse;
+		}
 		$oResponse->FailMessage = "Error from Stripe payment system. The parameters were valid but the request failed.";
 		return $oResponse;
 	}
@@ -292,4 +304,3 @@ echo "\n";
 }
 
 } // end TokGateway
-
