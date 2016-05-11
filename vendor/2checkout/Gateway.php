@@ -6,8 +6,8 @@ require_once('../base/AbstractGateway.php');
 
 class TokGateway extends AbstractTokGateway {
 
-protected $URLTest = 'https://sandbox.2checkout.com/checkout/api/1/901315566/rs/authService';
-protected $URLLive = 'https://www.2checkout.com/checkout/api/1/901315566/rs/authService';
+protected $URLTest = 'https://sandbox.2checkout.com/checkout/api/1/XXXX/rs/authService';
+protected $URLLive = 'https://www.2checkout.com/checkout/api/1/XXXX/rs/authService';
 
 protected $URLTestRefund = 'https://sandbox.2checkout.com/api/sales/refund_invoice';
 protected $URLLiveRefund = 'https://www.2checkout.com/api/sales/refund_invoice';
@@ -92,6 +92,7 @@ public function sendCharge(
 	$sSellerID = $this->SellerID;
 	$sMerchantOrderID = $this->MerchantOrderID;
 	$sMerchantOrderID = (empty($sMerchantOrderID)) ? uniqid() : $sMerchantOrderID;
+	$sURL = str_replace('XXXX',$sSellerID,$sURL);
 
 	$oResponse = (object) array();
 	$oResponse->isSuccess = FALSE;
@@ -179,6 +180,14 @@ echo "\nCURL RESPONSE CODE = $nResponseCode\n";
 		$oResponse->FailCode = $nResponseCode;
 	}
 	if ($nResponseCode == 400) {
+		@ $oJSON = json_decode($sResponse);
+		$sMessage = @ $oJSON->exception->errorMsg;
+		$sCode = @ $oJSON->exception->errorCode;
+		if (!empty($sCode)) {
+			$oResponse->FailCode = $sCode;
+			$oResponse->FailMessage = $sMessage;
+			return $oResponse;
+		}
 		$oResponse->FailMessage = "Error from 2Checkout payment system. The request was unacceptable, often due to missing a required parameter, or an invalid token.";
 		return $oResponse;
 	}
@@ -221,8 +230,8 @@ echo "\n";
 	$oResponse->isSuccess = (($bSuccess == 'APPROVED') and ($sTransID != ''));
 	$oResponse->TransID = $sTransID;
 	if (!$oResponse->isSuccess) {
-		$oResponse->FailMessage = @ $oJSON['exception']['errorMsg'];
-		$oResponse->FailCode = @ $oJSON['exception']['errorCode'];
+		$oResponse->FailMessage = @ $oJSON->exception->errorMsg;
+		$oResponse->FailCode = @ $oJSON->exception->errorCode;
 	}
 	return $oResponse;
 }
@@ -305,6 +314,14 @@ echo "\nCURL RESPONSE CODE = $nResponseCode\n";
 		$oResponse->FailCode = $nResponseCode;
 	}
 	if ($nResponseCode == 400) {
+		@ $oJSON = json_decode($sResponse);
+		$sMessage = @ $oJSON->exception->errorMsg;
+		$sCode = @ $oJSON->exception->errorCode;
+		if (!empty($sCode)) {
+			$oResponse->FailCode = $sCode;
+			$oResponse->FailMessage = $sMessage;
+			return $oResponse;
+		}
 		$oResponse->FailMessage = "Error from 2Checkout payment system. The request was unacceptable, often due to missing a required parameter, or an invalid token.";
 		return $oResponse;
 	}
@@ -347,8 +364,8 @@ echo "\n";
 	$oResponse->isSuccess = (($bSuccess == 'APPROVED') and ($sTransID != ''));
 	$oResponse->TransID = $sTransID;
 	if (!$oResponse->isSuccess) {
-		$oResponse->FailMessage = @ $oJSON['exception']['errorMsg'];
-		$oResponse->FailCode = @ $oJSON['exception']['errorCode'];
+		$oResponse->FailMessage = @ $oJSON->exception->errorMsg;
+		$oResponse->FailCode = @ $oJSON->exception->errorCode;
 	}
 	return $oResponse;
 
@@ -357,4 +374,3 @@ echo "\n";
 
 
 } // end TokGateway
-
