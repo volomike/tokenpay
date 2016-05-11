@@ -1,5 +1,5 @@
 # TokenPay
-Version 0.02
+Version 0.03
 
 ### Currently in Beta
 
