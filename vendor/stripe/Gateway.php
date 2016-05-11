@@ -136,8 +136,8 @@ echo "\n";
 	$oResponse->isSuccess = (($bSuccess == 'succeeded') and ($sTransID != ''));
 	$oResponse->TransID = $sTransID;
 	if (!$oResponse->isSuccess) {
-		$oResponse->FailMessage = @ $oJSON['error']['message'];
-		$oResponse->FailCode = @ $oJSON['error']['code'];
+		$oResponse->FailMessage = @ $oJSON->error->message;
+		$oResponse->FailCode = @ $oJSON->error->code;
 	}
 	return $oResponse;
 }
@@ -285,8 +285,8 @@ echo "\n";
 	$oResponse->isSuccess = (($bSuccess == 'succeeded') and ($sTransID != ''));
 	$oResponse->TransID = $sTransID;
 	if (!$oResponse->isSuccess) {
-		$oResponse->FailMessage = @ $oJSON['error']['message'];
-		$oResponse->FailCode = @ $oJSON['error']['code'];
+		$oResponse->FailMessage = @ $oJSON->error->message;
+		$oResponse->FailCode = @ $oJSON->error->code;
 	}
 	return $oResponse;
 }
